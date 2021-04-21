@@ -3,28 +3,15 @@ import Footer from './Footer';
 import ItemList from "./ItemList";
 import NewItemForm from "./NewItemForm";
 
-class ItemControl extends React.Component {
+class DisplayControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       masterItemList: [],
-      formVisibleOnPage: false,
-      initialQuantity: null
+      formVisibleOnPage: false
     };
   }
 
-  // handleRestockButton = () => {
-  //   const originalQuantity = this.quantity;
-  //   this.setState(prevState => ({
-  //     intitialQuantity: originalQuantity
-  //   }));
-  // }
-  handleRestockButton = (originalQuantity) => {
-    console.log(originalQuantity);
-    this.setState({
-      initialQuantity: originalQuantity
-    })
-  }
 
   handleClick = () => {
     this.setState(prevState => ({
@@ -47,7 +34,7 @@ class ItemControl extends React.Component {
       currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
       buttonText = "Return";
     } else {
-      currentlyVisibleState = <ItemList handleRestockButton={this.handleRestockButton} itemList={this.state.masterItemList} />;
+      currentlyVisibleState = <ItemList itemList={this.state.masterItemList} />;
       buttonText = "Add Item";
     }
     return (
@@ -62,4 +49,4 @@ class ItemControl extends React.Component {
   }
 }
 
-export default ItemControl;
+export default DisplayControl;

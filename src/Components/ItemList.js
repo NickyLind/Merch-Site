@@ -45,18 +45,12 @@ function ItemList(props) {
           name={item.name}
           description={item.description}
           quantity={item.quantity}
-          key={item.id}
           fullStock={item.fullStock}
-          handleRestockButton={props.handleRestockButton}
-        // restockQuantity={props.restockQuantity}
+          key={item.id}
         />
       )}
     </React.Fragment>
   );
-  // function handleBuyButton(props) {
-  //   props.item.quantity - 1;
-
-  // }
 }
 
 ItemList.propTypes = {
