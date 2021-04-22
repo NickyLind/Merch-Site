@@ -9,21 +9,22 @@ class ItemControl extends React.Component {
     this.state = {
       masterItemList: [],
       formVisibleOnPage: false,
-      initialQuantity: null
+      selectedItem: null
     };
   }
 
-  // handleRestockButton = () => {
-  //   const originalQuantity = this.quantity;
-  //   this.setState(prevState => ({
-  //     intitialQuantity: originalQuantity
-  //   }));
-  // }
-  handleRestockButton = (originalQuantity) => {
-    console.log(originalQuantity);
-    this.setState({
-      initialQuantity: originalQuantity
-    })
+
+  handleBuyButton = (id) => {
+    const decrementedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    console.log("Inside handleBuyButton")
+    if (decrementedItem.quantity >= 1) {
+      decrementedItem.quantity--;
+    }
+  }
+
+  handleRestockButton = (id) => {
+    const item = this.state.masterItemList.filter(item => item.id === id)[0];
+    item.quantity = item.fullStock;
   }
 
   handleClick = () => {
@@ -40,6 +41,11 @@ class ItemControl extends React.Component {
     });
   }
 
+  handleChangingSelectedItem = (id) => {
+    const selectedItem = this.state.masterItemList.filter(ticket => ticket.id === id)[0];
+    this.setState({ selectedItem: selectedItem });
+  }
+
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
@@ -47,7 +53,10 @@ class ItemControl extends React.Component {
       currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
       buttonText = "Return";
     } else {
-      currentlyVisibleState = <ItemList handleRestockButton={this.handleRestockButton} itemList={this.state.masterItemList} />;
+      currentlyVisibleState = <ItemList handleRestockButton={this.handleRestockButton} itemList={this.state.masterItemList}
+        onItemSelection={this.handleChangingSelectedItem}
+        onClickBuyButton={this.handleBuyButton}
+      />;
       buttonText = "Add Item";
     }
     return (

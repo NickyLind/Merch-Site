@@ -17,14 +17,21 @@ function NewItemForm(props) {
         <input
           type="number"
           name="quantity"
-          placeholder="Amount" />
+          placeholder="Amount"
+          min="1" />
+        <input
+          type="number"
+          name="fullStock"
+          placeholder="Maximum Quantity"
+          min="1" />
+        <button type="submit">Submit</button>
       </form>
     </React.Fragment>
   );
 
   function handleNewItemSubmission(e) {
     e.preventDefault();
-    props.onNewItemCreation({ name: e.target.name.value, description: e.target.description.value, quantity: e.target.quantity.value, id: v4() })
+    props.onNewItemCreation({ name: e.target.name.value, description: e.target.description.value, quantity: parseInt(e.target.quantity.value), fullStock: parseInt(e.target.fullStock.value), id: v4() })
   }
 }
 
